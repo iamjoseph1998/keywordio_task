@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Book{% endblock %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h4 class="pt-4 text-center">UPDATE EXISTING BOOK RECORD</h4>
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-8 pt-4 pb-4 col-xl-6">
+            <div class="card rounded-3">
+            <div class="card-body p-4 p-md-5">
+                <form class="px-md-2" method="GET" action="{% url 'adminapp:updatebook' %}" >
+    
+                    {% csrf_token %}
+                
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="book_name">Select Book ID</label>
+                        <select name="id" class="form-select" required>
+                            <option value="">--Select--</option>
+                            {% for book in books_data %}
+                            <option value="{{book.id}}">{{book.id}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg mb-1">Fetch Details</button>
+                </form>
+
+                <form class="px-md-2" method="POST" action="{% url 'adminapp:updatebook' %}" >
+    
+                    {% csrf_token %}
+                    {% for i in book %}
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="book_name">Book Name</label>
+                        <input type="text" id="book_name" value="{{i.book_name}}" name="book_name" class="form-control" required />
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="author">Author</label>
+                        <input type="text" name="author" id="author" value="{{ i.author }}" class="form-control" required />
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="quantity">Quantity</label>
+                        <input type="number" name="quantity" id="quantity" min="1" value="{{i.quantity}}" class="form-control" required />
+                    </div>
+                    {% endfor %}
+    
+                    <button type="submit" class="btn btn-success btn-lg mb-1">Update</button>
+    
+                </form>
+    
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <h4 class="pt-4 pb-4">LIST OF ALL BOOKS</h4>
+    <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Qty</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for book in books_data %}
+          <tr>
+            <th scope="row">{{book.id}}</th>
+            <td>{{book.book_name}}</td>
+            <td>{{book.author}}</td>
+            <td>{{book.quantity}}</td>
+          </tr>
+          {%endfor%}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

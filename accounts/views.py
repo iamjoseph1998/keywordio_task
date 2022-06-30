@@ -18,17 +18,15 @@ def register(request):
         #Password validation
         if password == password2:
             if User.objects.filter(email=email).exists():
-                # messages.error(request, 'Email already exist')
                 return redirect('register')
             else:
+                #User creation
                 first_name = first_name.capitalize()
                 last_name = last_name.capitalize()
                 user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email,
                 password=password)
-                # messages.success(request, 'Registered successfully')
                 return redirect('register')
         else:
-            # messages.error(request, 'Passwords do not match')
             return redirect('register')
     else:
         return render(request, 'register.html')
@@ -56,5 +54,4 @@ def login(request):
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
-        # messages.success(request, 'Logged out successfully')
         return redirect('/')
